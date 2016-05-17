@@ -12,7 +12,7 @@ namespace SRTool
 {
     public partial class Form1 : Form
     {
-        TimeZoneInfo utcZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+        TimeZoneInfo utcZone = TimeZoneInfo.FindSystemTimeZoneById("UTC");
         TimeZoneInfo pstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
         TimeZoneInfo nstZone = TimeZoneInfo.FindSystemTimeZoneById("Newfoundland Standard Time");
         public Form1()
@@ -83,8 +83,8 @@ namespace SRTool
         {
 
             DateTime pstTime = pstTimePicker.Value;
-            DateTime utcTime = TimeZoneInfo.ConvertTime(pstTime, utcZone);
-            DateTime nstTime = TimeZoneInfo.ConvertTime(pstTime, nstZone);
+            DateTime nstTime = pstTime.AddHours(4.5);
+            DateTime utcTime = pstTime.AddHours(7);
 
 
             utcTimePicker.Value = utcTime;
@@ -97,8 +97,8 @@ namespace SRTool
         {
 
             DateTime utcTime = utcTimePicker.Value;
-            DateTime pstTime = TimeZoneInfo.ConvertTime(utcTime, pstZone);
-            DateTime nstTime = TimeZoneInfo.ConvertTime(utcTime, nstZone);
+            DateTime pstTime = utcTime.AddHours(-7);
+            DateTime nstTime = utcTime.AddHours(-2.5);
 
             pstTimePicker.Value = pstTime;
             nstTimePicker.Value = nstTime;
